@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asp.Net Mvc-KendoUI</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/KendoUI/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/KendoUI/styles/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/KendoUI/styles/kendo.blueopal.min.css" rel="stylesheet" />
+
+    <script src="~/KendoUI/jquery-3.4.1.min.js"></script>
+    <script src="~/KendoUI/js/kendo.all.min.js"></script>
+    <script src="~/KendoUI/js/kendo.aspnetmvc.min.js"></script>
+
+
+
+
+
+</head>
+<body >
+
+    <div class="navbar navbar-inverse navbar-fixed-top"style="background-color:cornflowerblue";>
+        <div class="container">
+            <div class="navbar-header">
+               
+                
+               
+                @Html.Action("MenuBar", "Home")
+            </div>
+            
+        </div>
+    </div>
+    <div class="T0" id="L0" style="padding-top:20px" >
+
+        <table class="tg">
+          
+
+
+            <tr>
+                <th class="tg-031e">
+                   
+                </th>
+                <th class="tg-031e">
+                    @RenderBody()
+                </th>
+            </tr>
+        </table>
+
+
+    </div>
+
+
+
+
+
+    <hr />
+
+
+
+
+    <footer id="footer">
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+
+<style>
+
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        padding: 0px;
+        border-left: none;
+    }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 5px 5px 5px 0px;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 5px 100px 5px 5px;
+            overflow: hidden;
+            vertical-align: top;
+
+        }
+    #footer {
+        position:fixed;
+        bottom: 0;
+    }
+</style>

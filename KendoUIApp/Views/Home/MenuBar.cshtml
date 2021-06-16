@@ -1,0 +1,32 @@
+﻿@using Kendo.Mvc.UI.Fluent
+@model IEnumerable<KendoUIApp.Models.Menu>
+@functions{
+    public void addChildren(MenuItemBuilder builder, KendoUIApp.Models.Menu item, IEnumerable<KendoUIApp.Models.Menu> items)
+    {
+        var children = items.Where(m => m.ParentMenuID == item.MenuID);
+        if (children != null)
+        {
+            builder.Items(menuItems =>
+                {
+                    foreach (var child in children)
+                    {
+                        var menuItem = menuItems.Add().Text(child.Title).Url(child.Link);
+                        addChildren(menuItem, child, items);
+                    }
+                });
+
+        }
+    }
+}
+
+@(Html.Kendo().Menu()
+    .Name("menu")
+    .Orientation(MenuOrientation.Horizontal)
+    .Items(menu => {
+        foreach (var item in Model.Where(m=> m.ParentMenuID == null))
+        {
+            var builder = menu.Add().Text(item.Title).Url(item.Link);
+            addChildren(builder, item, Model);
+        }
+    })
+    )

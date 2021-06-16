@@ -1,0 +1,68 @@
+﻿@using Kendo.Mvc.UI
+@using KendoUIApp.ViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@(Html.Kendo().ResponsivePanel()
+        .Name("sidebar1")
+        .Breakpoint(1000)
+        .Orientation("right")
+        .Content(@<text>
+            <div id="profile" class="widget">
+
+                <div>
+                    @(Html.Kendo().Grid<JobViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.JobName).Title("İşin Adı");
+        columns.Bound(p => p.NotificationDate).Title("Bildirim Tarihi").Width(120);
+        columns.Bound(p => p.SolutionDate).Title("Çözüm Tarihi").Width(120);
+        columns.Bound(p => p.JobOwner).Title("İşin Sahibi").Width(120);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.InLine).ConfirmDelete("Continue to delete this record?").DisplayDeleteConfirmation("Silmek istediğinize emin misiniz?"))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model => model.Id(p => p.JobId))
+        .Create(update => update.Action("EditingInline_Create", "Home"))
+        .Read(read => read.Action("EditingInline_Read", "Home"))
+        .Update(update => update.Action("EditingInline_Update", "Home"))
+        .Destroy(update => update.Action("EditingInline_Destroy", "Home"))
+    )
+)
+
+
+
+                </div>
+            </div>
+
+        </text>)
+    )
+
+
+
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>
